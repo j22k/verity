@@ -1,0 +1,28 @@
+# Local working notes and planning documents (not shared)
+notes/
+docs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+dist/
+build/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local data
+ingestion/data/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

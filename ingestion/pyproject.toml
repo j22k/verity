@@ -1,0 +1,38 @@
+[project]
+name = "ingestion"
+version = "0.1.0"
+description = "Verity ingestion service: raw files to versioned, permission-tagged, searchable chunks"
+authors = [
+    { name = "j22k", email = "junaidkaliyadan@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pgvector>=0.5.1",
+    "psycopg[binary]>=3.3.9",
+    "pydantic>=2.14.3",
+    "pydantic-settings>=2.16.3",
+    "typer>=0.29.1",
+]
+
+[project.scripts]
+ingestion = "ingestion.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.11.15,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.5",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
