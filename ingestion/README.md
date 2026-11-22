@@ -1,5 +1,8 @@
 # Verity ingestion service
 
+To ran the cli.py:(using uv) uv run ingestion "path to the file" or python -m src.ingestion.cli 
+args: --preview:- show the deatails of each chunk 
+
 Turns raw files into versioned, permission-tagged, searchable chunks in Postgres + pgvector.
 
 - Queue-driven worker plus a CLI; no HTTP API.
