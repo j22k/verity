@@ -1,73 +1,20 @@
 
-from dataclasses import dataclass, field
+
 from pathlib import Path
 from typing import Any
 
 from docling.chunking import HybridChunker
 from docling_core.types.doc import DoclingDocument
+from ingestion.models import (
+    DocumentMetadata,ChunkMetadata, DocumentChunk, ChunkingResult
+)
 
 
-# ---------------------------------------------------------
-# 1. Document-level metadata
-# ---------------------------------------------------------
 
-@dataclass
-class DocumentMetadata:
-    document_id: str | None
-    filename: str
-    source_path: str | None
-    source_uri: str | None
-    mimetype: str | None
-    page_count: int
-    schema_name: str | None
-    docling_version: str | None
 
 
 # ---------------------------------------------------------
-# 2. Chunk-level metadata
-# ---------------------------------------------------------
-
-@dataclass
-class ChunkMetadata:
-    chunk_index: int
-
-    headings: list[str] = field(default_factory=list)
-    captions: list[str] = field(default_factory=list)
-
-    page_numbers: list[int] = field(default_factory=list)
-
-    item_types: list[str] = field(default_factory=list)
-    item_refs: list[str] = field(default_factory=list)
-
-    # Each entry contains the page number and bounding box
-    # associated with an extracted document element.
-    provenance: list[dict[str, Any]] = field(default_factory=list)
-
-
-# ---------------------------------------------------------
-# 3. Our application-level chunk representation
-# ---------------------------------------------------------
-
-@dataclass
-class DocumentChunk:
-    text: str
-    raw_text: str
-    token_count: int
-    metadata: ChunkMetadata
-
-
-# ---------------------------------------------------------
-# 4. Complete chunking result
-# ---------------------------------------------------------
-
-@dataclass
-class ChunkingResult:
-    document: DocumentMetadata
-    chunks: list[DocumentChunk]
-
-
-# ---------------------------------------------------------
-# 5. Chunker
+# 1. Chunker
 # ---------------------------------------------------------
 
 _chunker = HybridChunker(merge_peers=True)

@@ -1,7 +1,7 @@
 import typer
 from pathlib import Path
 
-from ingestion.extraction import extract_document
+from ingestion.parsers.extraction import extract_document
 from ingestion.chunking import chunk_document
 
 app = typer.Typer(
