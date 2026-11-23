@@ -20,6 +20,7 @@ build/
 
 # Local data
 ingestion/data/
+ingestion/src/data/
 
 # OS / editor
 .DS_Store
