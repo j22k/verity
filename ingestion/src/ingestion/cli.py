@@ -5,7 +5,7 @@ from pathlib import Path
 from ingestion.config import load_blob_settings
 from ingestion.blobstore.factory import create_blobstore
 from ingestion.parsers.pipeline import (
-    extract_and_store,
+    process_and_store,
     load_document_from_blobstore,
 )
 from ingestion.chunking import chunk_document
@@ -56,7 +56,7 @@ def process(
         # 1. Extract document and persist it
         typer.echo("Extracting document...")
 
-        document_key = extract_and_store(
+        document_key = process_and_store(
             file_path=file_path,
             blobstore=blobstore
         )
