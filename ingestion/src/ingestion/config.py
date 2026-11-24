@@ -1,4 +1,6 @@
-"""Service configuration, read from environment variables or a local .env file."""
+from dataclasses import dataclass
+import  os 
+from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -16,3 +18,18 @@ class Settings(BaseSettings):
 
 def get_settings() -> Settings:
     return Settings()
+
+
+@dataclass
+class BlobSettings:
+    STORAGE_BACKEND: str
+    BLOBSTORE_ROOT: Path
+    S3_BUCKET: str
+
+def load_blob_settings() -> BlobSettings:
+    project_root = Path(__file__).resolve().parents[1]
+    return BlobSettings(
+        STORAGE_BACKEND=os.environ.get("STORAGE_BACKEND", "local"),
+        BLOBSTORE_ROOT=Path(os.environ.get("BLOBSTORE_ROOT", project_root / "data" / "blobs")),
+        S3_BUCKET=os.environ.get("S3_BUCKET", "my-s3-bucket")
+    )
